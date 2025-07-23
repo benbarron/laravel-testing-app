@@ -1,0 +1,17 @@
+version: "3.8"  # Specify Docker Compose file version
+services:
+  db:  # Define a service named "db" (you can choose any name)
+    image: postgres:15  # Use the official PostgreSQL image, version 15
+    container_name: local_pg  # Assign a container name
+    environment:
+      POSTGRES_USER: postgres  # Set the PostgreSQL user
+      POSTGRES_PASSWORD: postgres  # Set the PostgreSQL password
+      POSTGRES_DB: testing_app # Set the default database name
+    ports:
+      - "5432:5432"  # Expose port 5432 (host:container)
+    volumes:
+      - pgdata:/var/lib/postgresql/data # Map a volume for persistent data storage
+
+volumes:
+  pgdata: # Define the volume named "pgdata"
+
