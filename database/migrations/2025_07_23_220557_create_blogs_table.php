@@ -14,10 +14,16 @@ return new class extends Migration
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('user_id');
             $table->string('title');
             $table->string('content', 2048);
             $table->string('cover_image')->nullable();
+
+            $table->unsignedBigInteger('user_id'); 
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

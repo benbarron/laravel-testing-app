@@ -4,11 +4,14 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Auth\PasswordValidationRules;
-use Laravel\Nova\Fields\Gravatar;
+// use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Boolean;
 
 class User extends Resource
 {
@@ -47,7 +50,7 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make()->maxWidth(50),
+            // Gravatar::make()->maxWidth(50),
 
             Text::make('Name')
                 ->sortable()
@@ -63,7 +66,18 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules($this->passwordRules())
                 ->updateRules($this->optionalPasswordRules()),
+
+            Image::make('Profile Image', 'profile_image')->disk('s3'),
+
+            Boolean::make("Is Admin"),
+
+            HasMany::make("Blogs")
         ];
+    }
+
+    public function blogs()
+    {
+        return this->hasMany(Product::class);
     }
 
     /**

@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'profile_image',
     ];
 
     /**
@@ -46,9 +47,9 @@ class User extends Authenticatable
         ];
     }
 
-    // public function blogs(): HasMany
-    // {
-    //     return $this->hasMany(Blog::class);
-    // }
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class);
+    }
 
 }

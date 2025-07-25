@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: postgres  # Set the PostgreSQL password
       POSTGRES_DB: testing_app # Set the default database name
     ports:
-      - "5432:5432"  # Expose port 5432 (host:container)
+      - "5431:5432"  # Expose port 5432 (host:container)
     volumes:
       - pgdata:/var/lib/postgresql/data # Map a volume for persistent data storage
 

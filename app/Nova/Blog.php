@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -9,6 +10,7 @@ use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasOne;
 
 class Blog extends Resource
 {
@@ -35,6 +37,15 @@ class Blog extends Resource
         'id',
     ];
 
+    public static function newModel()
+    {
+        $model = parent::newModel();
+        if (auth()->check()) {
+            $model->user_id = auth()->id();
+        }
+        return $model;
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -47,15 +58,11 @@ class Blog extends Resource
             
             Text::make("Title")->required(),
             
-            // BelongsTo::make('Author', 'user', 'App\Nova\User')
-            //     ->default($request->user()->getKey()),
-
-            // Text::make("user_id", )
-            
             Markdown::make("Content")->required(),
 
             Image::make('Cover Image', 'cover_image')->disk('public'),
 
+            // BelongsTo::make('User')->sortable()->showOnPreview(),
         ];
     }
 

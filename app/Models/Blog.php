@@ -13,8 +13,8 @@ class Blog extends Model
         'cover_image',
     ];
 
-    // public function user(): BelongsTo
-    // {
-    //     return $this->belongsTo(User::class, 'id', 'user_id');
-    // }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id', 'user_id');
+    }
 }
