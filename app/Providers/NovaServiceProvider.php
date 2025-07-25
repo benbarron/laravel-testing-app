@@ -57,7 +57,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             // return in_array($user->email, [
             //     'benbarron@protonmail.com'
             // ]);
-            return user->is_admin;
+            return $user->is_admin;
         });
     }
 
